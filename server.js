@@ -2,7 +2,10 @@ const express = require("express");
 const app = express();
 
 app.use(express.json())
+app.use(express.static("build"))
 
+
+/*********** DATA **************/
 const pokemons = [
   {
     id: 1,
@@ -13,23 +16,29 @@ const pokemons = [
   }
 ]
 
+
+/************ APIs ****************/
 app.get("/api/pokemons", (req, res) => {
-  console.log("GET /api/pokemons")
-  res.send({pokemons: pokemons})
+  console.log("GET /api/pokemons: ", pokemons)
+  res.send({pokemons})
 });
 
 app.post("/api/pokemons", (req, res) => {
-  const data = req.body
-  console.log("POST /api/pokemons", data)
+  console.log("req.body:: ", req.body);
+  let data = req.body
   data.id = pokemons.length + 1
+  console.log("POST /api/pokemons", data)
   pokemons.push(data)
   res.send(data)
 })
 
-app.get("/", (req, res) => {
-    console.log("general GET");
-    res.send({message: "all good"});
+
+/************* DELIVERS FE ****************/
+// After all other routes
+app.get('*', (req, res) => {
+  res.sendFile('build/index.html');
 });
+
 
 const port = process.env.PORT || 8080
 app.listen(port, () => console.log(`listening on port ${port}`))
