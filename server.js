@@ -1,8 +1,8 @@
 const express = require("express");
 const app = express();
 
-app.use(express.json())
-app.use(express.static("build"))
+app.use(express.json());
+app.use(express.static("build"));
 
 
 /*********** DATA **************/
@@ -14,7 +14,7 @@ const pokemons = [
     level: 99,
     image: "/pikachu.webp"
   }
-]
+];
 
 
 /************ APIs ****************/
@@ -30,7 +30,7 @@ app.post("/api/pokemons", (req, res) => {
   console.log("POST /api/pokemons", data)
   pokemons.push(data)
   res.send(data)
-})
+});
 
 
 /************* DELIVERS FE ****************/
@@ -40,5 +40,5 @@ app.get('*', (req, res) => {
 });
 
 
-const port = process.env.PORT || 8080
-app.listen(port, () => console.log(`listening on port ${port}`))
+const port = process.env.PORT || 8080;
+app.listen(port, () => console.log(`listening on port ${port}`));
