@@ -6,7 +6,7 @@ app.use(express.static("build"));
 
 
 /*********** DATA **************/
-const pokemons = [
+let pokemons = [
   {
     id: 1,
     name: "Pikachu",
@@ -31,6 +31,15 @@ app.post("/api/pokemons", (req, res) => {
   pokemons.push(data)
   res.send(data)
 });
+
+/*****************************CLEAR SERVER *********************************/
+app.post("/api/clear", (req, res) => {
+  console.log("clear:: ", req.body);
+  pokemons = [];
+  res.send([])
+});
+
+
 
 
 /************* DELIVERS FE ****************/
