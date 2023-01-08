@@ -17,28 +17,37 @@ let pokemons = [
 ];
 
 
+
 /************ APIs ****************/
 app.get("/api/pokemons", (req, res) => {
-  console.log("GET /api/pokemons: ", pokemons)
-  res.send({pokemons})
+  // if (1) return res.send(null);  // testing error
+
+  // console.log("GET /api/pokemons: ", pokemons);
+  res.send({pokemons});
 });
+
 
 app.post("/api/pokemons", (req, res) => {
-  console.log("req.body:: ", req.body);
-  let data = req.body
-  data.id = pokemons.length + 1
-  console.log("POST /api/pokemons", data)
-  pokemons.push(data)
-  res.send(data)
+  // if (1) return res.send(null);  // testing error
+
+  let data = req.body;
+  // console.log("req.body:: ", req.body, Object.keys(data).length === 0 , data.constructor === Object);
+  if (!(Object.keys(data).length === 0 && data.constructor === Object)) {
+    data.id = pokemons.length + 1;
+    // console.log("POST /api/pokemons", data);
+    pokemons.push(data);
+  }
+  res.send(data);
 });
 
-/*****************************CLEAR SERVER *********************************/
-app.post("/api/clear", (req, res) => {
-  console.log("clear:: ", req.body);
+
+app.post("/api/clearData", (req, res) => {
+  // if (1) return res.send(null); // testing error
+
+  // console.log("----clear:: ", req.body);
   pokemons = [];
-  res.send([])
+  res.send([]);
 });
-
 
 
 
